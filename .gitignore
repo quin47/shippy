@@ -1,2 +1,4 @@
 .idea
 consignment-service/consignment-service
+consignment-cli/consignment-cli
+vessel-service/vessel-service
