@@ -29,7 +29,7 @@ func main() {
 		log.Fatalf("parse consignment Failed: %v",err)
 	}
 
-	serviceClient := pb.NewShippingServiceClient("go.micro.srv.consignment", client.DefaultClient)
+	serviceClient := pb.NewShippingService("go.micro.srv.consignment", client.DefaultClient)
 	cmd.Init()
 	response, e := serviceClient.CreateConsignment(context.TODO(), consignment)
 	if e != nil {
