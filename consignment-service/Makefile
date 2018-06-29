@@ -5,7 +5,7 @@ build:
 buildlocal:
 	protoc -I. --go_out=. --micro_out=. \
 		proto/consignment/consignment.proto
-	GOOS=linux GOARCH=amd64 go build
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0  go build
 	docker build -t consignment-service -f Dockerfilelocal .
 
 
