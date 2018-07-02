@@ -1,6 +1,7 @@
+
 FROM golang:1.10.3 as builder
 # set our workdir to current service in path
-WORKDIR /go/src/github.com/quin47/shippy/consignment-cli
+WORKDIR /go/src/github.com/quin47/shippy/user-cli
 #copy current code to workdir
 COPY . .
 # pull deps
@@ -10,12 +11,19 @@ RUN  dep ensure -v
 #build
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo .
 
+#packaging
+FROM alpine:latest
+RUN mkdir /app
+WORKDIR /app
+#pull binary from builder
+COPY --from=builder /go/src/github.com/quin47/shippy/user-cli/user-cli .
+
+
+CMD ["./user-cli"]
 
 FROM alpine:latest
 RUN mkdir -p /app
 WORKDIR /app
+COPY --from=builder /go/src/github.com/quin47/shippy/user-cli/user-cli .
 
-ADD consignment.json /app/consignment.json
-COPY --from=builder /go/src/github.com/quin47/shippy/consignment-service/consignment-service .
-
-CMD ["./consignment-cli"]
+CMD ["./user-cli"]

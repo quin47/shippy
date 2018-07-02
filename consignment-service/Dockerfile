@@ -1,5 +1,3 @@
-#build
-
 FROM golang:1.10.3 as builder
 # set our workdir to current service in path
 WORKDIR /go/src/github.com/quin47/shippy/consignment-service
